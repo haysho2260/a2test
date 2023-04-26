@@ -28,7 +28,7 @@ int find_dir(char* fileDir){
 
 
 int init_sim(){
-    chdir("./empty");
+    chdir("./fs");
     FILE *fp = fopen("inodes_list", "rb");
     if (fp == NULL) {
         perror("Failed to open file");
