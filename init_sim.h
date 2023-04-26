@@ -1,0 +1,1 @@
+int init_sim(char* fileDir, char cwd[]);
