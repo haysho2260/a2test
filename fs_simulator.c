@@ -10,7 +10,7 @@
 
 
 int main(int argc, char *argv[]) {
-    char cwd[1024];
+    int cwd[1024] = {-1};
     char rsp[40];
     char *cmd, *name;
     find_dir(argv[1]);
@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         cmd = strtok(rsp, " ");
         name = strtok(NULL, " ");
         if (!strcmp("ls", cmd)){
-            ls();
+            ls(cwd);
         } else if (!strcmp("exit", cmd)) {
 
         }

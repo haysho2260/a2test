@@ -1,1 +1,1 @@
-int ls();
+int ls(int* cwd);
