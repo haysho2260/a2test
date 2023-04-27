@@ -7,6 +7,8 @@
 #include "find_dir.h"
 #include "init_sim.h"
 #include "ls.h"
+#include "cd.h"
+#include "file_path.h"
 
 
 int main(int argc, char *argv[]) {
@@ -22,7 +24,11 @@ int main(int argc, char *argv[]) {
         name = strtok(NULL, " ");
         if (!strcmp("ls", cmd)){
             ls(cwd);
-        } else if (!strcmp("exit", cmd)) {
+        } 
+        if (!strcmp("cd", cmd)){
+            cd(name, cwd);
+        }
+        else if (!strcmp("exit", cmd)) {
 
         }
         

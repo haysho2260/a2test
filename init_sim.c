@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdint.h>
+#include "file_path.h"
 
 int init_sim(char* fileDir, char* cwd){
     chdir(fileDir);
