@@ -6,22 +6,23 @@
 #include <stdint.h>
 #include "find_dir.h"
 #include "init_sim.h"
+#include "ls.h"
 
 
 int main(int argc, char *argv[]) {
     char cwd[1024];
     char rsp[40];
-    ;
+    char *cmd, *name;
     find_dir(argv[1]);
     init_sim(argv[1], cwd);
-    while (){
+    while (1){
         printf("> ");
-        scanf("%s", &num);
-        char cmd[] = strtok(rsp, ",");
-        char name[] = strtok(rsp, ",")
-        if (strcmp("ls", cmd)){
+        scanf("%s", rsp);
+        cmd = strtok(rsp, " ");
+        name = strtok(NULL, " ");
+        if (!strcmp("ls", cmd)){
             ls();
-        } else if (cmd == "exit") {
+        } else if (!strcmp("exit", cmd)) {
 
         }
         
