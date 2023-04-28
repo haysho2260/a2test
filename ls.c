@@ -7,12 +7,10 @@
 #include "uint32_to_str.h"
 #include "file_path.h"
 
-int ls(char* cwd){
+int ls(struct file_path *cwd){
     uint32_t num;
     char fname[33];
-    int i = 0;
-    while(cwd[i++] != '\0');
-    FILE *fp = fopen(uint32_to_str(cwd[i--]), "rb");
+    FILE *fp = fopen(uint32_to_str(cwd->cur), "rb");
     if (fp == NULL) {
         perror("Failed to open file");
         return 1;

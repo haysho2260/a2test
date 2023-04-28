@@ -4,11 +4,12 @@
 
 struct file_path {
     int path[MAX_SIZE];
-    int cwd;
-
+    int cur;
 };
 
-#endif
+void push(struct file_path *s, int item);
+int pop(struct file_path *s);
+void init_stack(struct file_path *s);
+int is_empty(struct file_path *s); 
 
-void push(struct stack *s, int item);
-int pop(struct stack *s);
+#endif

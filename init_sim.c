@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "file_path.h"
 
-int init_sim(char* fileDir, char* cwd){
+int init_sim(char* fileDir, struct file_path *cwd){
     chdir(fileDir);
     FILE *fp = fopen("inodes_list", "rb");
     if (fp == NULL) {
@@ -22,6 +22,6 @@ int init_sim(char* fileDir, char* cwd){
         }
     }
     fclose(fp);
-    cwd[0] = 0;
+    init_stack(cwd);
     return 0;
 }

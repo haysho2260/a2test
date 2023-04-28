@@ -1,1 +1,1 @@
-int cd(char* fileDir, struct stack *s);
+void cd(char* fileDir, struct file_path *cwd);

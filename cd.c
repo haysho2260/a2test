@@ -8,11 +8,19 @@
 #include "file_path.h"
 
 
-void cd(char* fileDir, char* cwd){
+void cd(char* fileDir, struct file_path *cwd){
     if (chdir(fileDir) == -1) {
         perror("Error: Unable to change directory");
         exit(EXIT_FAILURE);
-    } 
-    if ()
-    return 0;
+    } else if (strcmp(".", fileDir)){
+
+    } else if(strcmp("..", fileDir)){
+        pop(cwd);
+    } else if (fileDir == NULL){
+        while ()
+    } else {
+        push(cwd, fileDir);
+    }
+    printf("%d", (cwd->cur));
+    return;
 }

@@ -12,21 +12,19 @@
 
 
 int main(int argc, char *argv[]) {
-    int cwd[1024] = {-1};
-    char rsp[40];
-    char *cmd, *name;
+    struct file_path cwd;
+    char cmd[40];
+    char name[40];
     find_dir(argv[1]);
-    init_sim(argv[1], cwd);
+    init_sim(argv[1], &cwd);
     while (1){
         printf("> ");
-        scanf("%s", rsp);
-        cmd = strtok(rsp, " ");
-        name = strtok(NULL, " ");
+        scanf("%s %s", cmd, name);
         if (!strcmp("ls", cmd)){
-            ls(cwd);
+            ls(&cwd);
         } 
         if (!strcmp("cd", cmd)){
-            cd(name, cwd);
+            cd(name, &cwd);
         }
         else if (!strcmp("exit", cmd)) {
 
