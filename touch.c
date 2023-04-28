@@ -25,6 +25,19 @@ void touch(char* fileDir, struct file_path *cwd){
     }
     if (num > 1023){
         printf("Not enough inodes");
+    } else {
+        // write to directory file
+        fwrite(&(num + 1), sizeof(num), 1, fp); 
+        fwrite(fileDir, 32, 1, fp);
+        fclose(fp);
+        FILE *fp = fopen("inodes_list", "rb+");
+        if (fp == NULL) {
+            perror("Failed to open file");
+        }
+        while (fread(&num, sizeof(num), 1, fp) == 1 &&
+        fread(&fname, 32, 1, fp) == 1){
+
+        }
     }
 
     fclose(fp);

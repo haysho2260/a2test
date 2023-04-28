@@ -13,19 +13,13 @@
 
 int main(int argc, char *argv[]) {
     struct file_path cwd;
-    char rsp[40];
-    char* cmd;
-    char* name;
+    char cmd[40], name[40], rsp[80];
     find_dir(argv[1]);
     init_sim(argv[1], &cwd);
     while (1){
         printf("> ");
         scanf("%s", rsp);
-        cmd = strtok(rsp, " ");
-        name = strtok(NULL, " ");
-
-        printf("%s\n", cmd);
-        printf("name %s\n", name);
+        sscanf(rsp, "%s %s", cmd, name);
         if (!strcmp("ls", cmd)){
             ls((&cwd)->cur);
         } 
@@ -35,7 +29,6 @@ int main(int argc, char *argv[]) {
         else if (!strcmp("exit", cmd)) {
 
         }
-        
     }
     return 0;
 

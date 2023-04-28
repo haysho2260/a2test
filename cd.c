@@ -9,30 +9,25 @@
 
 
 void cd(char* fileDir, struct file_path *cwd){
-    char curd[1024];
-    // printf("%s", fileDir);
-    // printf("cwd: %s\n", getcwd(curd, sizeof(curd)));
-    // chdir(fileDir);
-    // printf("cwd: %s\n", getcwd(curd, sizeof(curd)));
-    // printf("cwd: %s\n", getcwd(curd, sizeof(curd)));
-    // chdir("..");
-    // printf("cwd: %s\n", getcwd(curd, sizeof(curd)));
-
-    // printf("cwd: %s\n", getcwd(curd, sizeof(curd)));
-    if (chdir(fileDir) == -1) {
-        perror("Error: Unable to change directory");
-        printf("cwd: %s\n", getcwd(curd, sizeof(curd)));
-    } else if (fileDir == NULL){
-        while (!is_empty(cwd)){
-            pop(cwd);
-            chdir("..");
+    uint32_t num;
+    char fname[33];
+    int found = 0;
+    FILE *fp = fopen(uint32_to_str(cwd->cur), "rb");
+    if (fp == NULL) {
+        perror("Failed to open file");
+        return;
+    }
+    while (!found && fread(&num, sizeof(num), 1, fp) == 1 &&
+    fread(&fname, 32, 1, fp) == 1){
+        if (strcmp(fname, fileDir)){
+            found = 1;
         }
-    } else if (strcmp(".", fileDir)){
-        //do nothing
-    } else if (strcmp("..", fileDir)){
-        pop(cwd);
-    } else {
-        push(cwd, *fileDir);
+    }
+    fclose(fp);
+    if (found){
+        push(cwd, num);
+    } else{
+        printf("Error: Unable to change directory");
     }
     return;
 }
