@@ -5,42 +5,32 @@
 #include <errno.h>
 #include <stdint.h>
 #include "uint32_to_str.h"
-#include "file_path.h"
-
-
-void touch(char* fileDir, struct file_path *cwd){
+void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
     uint32_t num;
     char fname[33];
-    FILE *fp = fopen(uint32_to_str(cur), "rb+");
+    FILE *fp = fopen(uint32_to_str(*cwd), "rb");
     if (fp == NULL) {
         perror("Failed to open file");
-        return 1;
+        return;
     }
+    //check the directory to see if the file exists
     while (fread(&num, sizeof(num), 1, fp) == 1 &&
     fread(&fname, 32, 1, fp) == 1){
-        if (strcmp(fileDir, fname)){
-            // do nothing
-            return
+        //if is directory and name matches what user wants to cd to, set cwd to num
+        if (!strcmp(fname, fileDir)){
+            return;
         }
     }
-    if (num > 1023){
-        printf("Not enough inodes");
-    } else {
-        // write to directory file
-        fwrite(&(num + 1), sizeof(num), 1, fp); 
-        fwrite(fileDir, 32, 1, fp);
-        fclose(fp);
-        FILE *fp = fopen("inodes_list", "rb+");
-        if (fp == NULL) {
-            perror("Failed to open file");
-        }
-        while (fread(&num, sizeof(num), 1, fp) == 1 &&
-        fread(&fname, 32, 1, fp) == 1){
-
-        }
-    }
-
     fclose(fp);
-    return 0;
+
+    // write to inodes list
+    fp = fopen("inodes_list", "ab");
+    if (fp == NULL) {
+        perror("Failed to open file");
+        return;
+    }
+    // fwrite(fp,"%uf", *indSize); // write the new inode # and name to inodes_list
+    (*indSize) ++; // add one to the size of the list
+    fclose(fp);
     return;
 }

@@ -5,29 +5,29 @@
 #include <errno.h>
 #include <stdint.h>
 #include "uint32_to_str.h"
-#include "file_path.h"
 
 
-void cd(char* fileDir, struct file_path *cwd){
+/*
+make sure we can go into that directory
+    check if exist in that directory
+change cur to that directory
+*/
+void cd(char* fileDir, int *cwd, char indlst[]){
     uint32_t num;
     char fname[33];
-    int found = 0;
-    FILE *fp = fopen(uint32_to_str(cwd->cur), "rb");
+    FILE *fp = fopen(uint32_to_str(*cwd), "rb");
     if (fp == NULL) {
         perror("Failed to open file");
         return;
     }
-    while (!found && fread(&num, sizeof(num), 1, fp) == 1 &&
+    //read directory for number list and file name
+    while (fread(&num, sizeof(num), 1, fp) == 1 &&
     fread(&fname, 32, 1, fp) == 1){
-        if (strcmp(fname, fileDir)){
-            found = 1;
+        //if is directory and name matches what user wants to cd to, set cwd to num
+        if (!strcmp(fname, fileDir) && indlst[num] == 'd'){
+            *cwd = num;
         }
     }
     fclose(fp);
-    if (found){
-        push(cwd, num);
-    } else{
-        printf("Error: Unable to change directory");
-    }
     return;
 }

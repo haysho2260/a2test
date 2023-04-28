@@ -10,6 +10,6 @@ all: $(ALL)
 # The things on the following lines are the actions to take to build the file
 # $@ is the meta character that means "name of the rule"
 # $^ is the meta character that means "all of the dependencies"
-fs_simulator: fs_simulator.c find_dir.c init_sim.c ls.c uint32_to_str.c cd.c file_path.c
+fs_simulator: fs_simulator.c find_dir.c init_sim.c ls.c uint32_to_str.c cd.c file_path.c touch.c
 	gcc -o $@ $^ -Wall
 

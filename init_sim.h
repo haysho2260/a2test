@@ -1,2 +1,1 @@
-#include "file_path.h"
-int init_sim(char* fileDir, struct file_path *cwd);
+int init_sim(char* fileDir, int *cwd, char indlst[], int *indsize);

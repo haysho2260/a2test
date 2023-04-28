@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "file_path.h"
 
-int init_sim(char* fileDir, struct file_path *cwd){
+int init_sim(char* fileDir, int *cwd, char indlst[], int *indSize){
     chdir(fileDir);
     FILE *fp = fopen("inodes_list", "rb");
     if (fp == NULL) {
@@ -19,9 +19,12 @@ int init_sim(char* fileDir, struct file_path *cwd){
             fread(&ch, sizeof(ch), 1, fp) == 1){
         if ((num < 0) || (num > 1023)){
                 printf("Inode: %d is invalid\n", num);
+        } else {
+            indlst[num] = ch;
+            (*indSize) ++;
         }
     }
     fclose(fp);
-    init_stack(cwd);
+    *cwd = 0;
     return 0;
 }

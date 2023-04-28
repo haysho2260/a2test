@@ -9,25 +9,32 @@
 #include "ls.h"
 #include "cd.h"
 #include "file_path.h"
+#include "touch.h"
 
 
 int main(int argc, char *argv[]) {
-    struct file_path cwd;
-    char cmd[40], name[40], rsp[80];
+    // struct file_path cwd;
+    int cwd, indSize=0;
+    char cmd[6], name[33], rsp[39];
+    char indlst[1024] = {'\0'};
     find_dir(argv[1]);
-    init_sim(argv[1], &cwd);
+    init_sim(argv[1], &cwd, indlst, &indSize);
     while (1){
         printf("> ");
-        scanf("%s", rsp);
+        fgets(rsp, 100, stdin);
         sscanf(rsp, "%s %s", cmd, name);
+        name[32] = '\0';
         if (!strcmp("ls", cmd)){
-            ls((&cwd)->cur);
+            ls(cwd);
         } 
-        if (!strcmp("cd", cmd)){
-            cd(name, &cwd);
+        else if (!strcmp("cd", cmd)){
+            cd(name, &cwd, indlst);
+        }
+        else if (!strcmp("touch", cmd)){
+            touch(name, &cwd, indlst, &indSize);
         }
         else if (!strcmp("exit", cmd)) {
-
+           
         }
     }
     return 0;
