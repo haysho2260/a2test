@@ -13,15 +13,21 @@
 
 int main(int argc, char *argv[]) {
     struct file_path cwd;
-    char cmd[40];
-    char name[40];
+    char rsp[40];
+    char* cmd;
+    char* name;
     find_dir(argv[1]);
     init_sim(argv[1], &cwd);
     while (1){
         printf("> ");
-        scanf("%s %s", cmd, name);
+        scanf("%s", rsp);
+        cmd = strtok(rsp, " ");
+        name = strtok(NULL, " ");
+
+        printf("%s\n", cmd);
+        printf("name %s\n", name);
         if (!strcmp("ls", cmd)){
-            ls(&cwd);
+            ls((&cwd)->cur);
         } 
         if (!strcmp("cd", cmd)){
             cd(name, &cwd);
@@ -30,19 +36,11 @@ int main(int argc, char *argv[]) {
 
         }
         
-        // if (argv[1] == "cd"){
-
-        // } else if (argv[1] == "ls"){
-
-        // } else if (arg[1] == "mkdir") {
-
-        // } else if (arg[1] == "touch"){
-
-        // }
     }
     return 0;
 
 }
+
 
 
 

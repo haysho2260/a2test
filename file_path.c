@@ -28,7 +28,7 @@ void init_stack(struct file_path *s) {
     s->cur = 0;
 }
 
-// check if the stack is empty
+// check if the stack is empty/back at the home directory
 int is_empty(struct file_path *s) {
-    return (s->cur == -1);
+    return (s->cur == 0);
 }
