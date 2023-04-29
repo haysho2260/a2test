@@ -30,7 +30,7 @@ void cd(char* fileDir, int *cwd, char indlst[]){
             return;
         }
     }
-    printf("%s: Not a directory", fname);
+    printf("%s: Not a directory\n", fileDir);
     fclose(fp);
     return;
 }
