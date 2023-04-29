@@ -17,7 +17,7 @@ void append_inodes(int* indSize, char* fileType){
         return;
     }
     fwrite((indSize--), sizeof(uint32_t), 1, fp); // write the new inode # and name to inodes_list
-    fwrite(&fileType, sizeof(char), 1, fp); // write the new inode # and name to inodes_list
+    fwrite(fileType, sizeof(char), 1, fp); // write the new inode # and name to inodes_list
     fclose(fp);
     return;
 }
