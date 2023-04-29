@@ -17,9 +17,9 @@ mkdir
 */
 
 void make_dir(char *fileDir, int *cwd, int* indSize);
-void mkdir(char *fileDir, int *cwd, int* indSize){
+void mkdir(char *fileDir, int *cwd, int* indSize, char indlst[]){
     if (!check_dupe(cwd, fileDir)){
-        append_inodes(indSize, "d"); // also increments indSize by 1
+        append_inodes(indSize, "d", indlst); // also increments indSize by 1
         add_file_to_cwd(fileDir, cwd, indSize);
         make_dir(fileDir, cwd, indSize);
     }
@@ -27,13 +27,15 @@ void mkdir(char *fileDir, int *cwd, int* indSize){
 }
 void make_dir(char *fileDir, int *cwd, int* indSize){
     // make new file (AKA directory)
-    FILE *fp = fopen(fileDir, "wb");
+    char name[11];
+    sprintf(name, "%d", *indSize--);
+    FILE *fp = fopen(name, "wb");
     if (fp == NULL) {
         perror("Failed to open file");
         return;
     }
     // # .
-    fwrite((indSize--), sizeof(uint32_t), 1, fp); // write the new inode # and name to new dir
+    fwrite(&(*indSize--), sizeof(uint32_t), 1, fp); // write the new inode # and name to new dir
     fwrite(&".", 32, 1, fp); // write the new inode # and name to new dir
     // # ..
     fwrite(cwd, sizeof(uint32_t), 1, fp); // write the cwd and name to new dir

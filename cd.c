@@ -25,9 +25,12 @@ void cd(char* fileDir, int *cwd, char indlst[]){
     fread(&fname, 32, 1, fp) == 1){
         //if is directory and name matches what user wants to cd to, set cwd to num
         if (!strcmp(fname, fileDir) && indlst[num] == 'd'){
-            *cwd = num;
+            *cwd = (int)num;
+            fclose(fp);
+            return;
         }
     }
+    printf("%s: Not a directory", fname);
     fclose(fp);
     return;
 }

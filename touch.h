@@ -1,1 +1,1 @@
-void touch(char* fileDir, int* cwd, int* indSize);
+void touch(char* fileDir, int* cwd, int* indSize, char indlst[]);

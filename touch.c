@@ -12,9 +12,9 @@ touch
     add to inodes_list (inode and file type f)
     write to current directory with new inode number and file name
 */
-void touch(char *fileDir, int *cwd, int* indSize){
+void touch(char *fileDir, int *cwd, int* indSize, char indlst[]){
     if (!check_dupe(cwd, fileDir)){
-        append_inodes(indSize, "f");
+        append_inodes(indSize, "f", indlst);
         add_file_to_cwd(fileDir, cwd, indSize);
     }
     return;
