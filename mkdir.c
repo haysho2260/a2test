@@ -5,13 +5,19 @@
 #include <errno.h>
 #include <stdint.h>
 #include "uint32_to_str.h"
+
 /*
-touch
+mkdir
+    -check to see if directory already exists in the current directory
+    record the current directory for ..
     makes a new inode in my ind list
-    add to inodes_list (inode and file type f)
+    add to inodes_list (inode and file type d)
+    make new file with fopen("", "wb")
     write to current directory with new inode number and file name
 */
-void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
+
+
+void mkdir(char *fileDir, int *cwd, char indlst[], int* indSize){
     uint32_t num;
     char fname[33];
     int a, b;

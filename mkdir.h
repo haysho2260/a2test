@@ -1,0 +1,1 @@
+void mkdir(char* fileDir, int* cwd, char indlst[], int* indSize);
