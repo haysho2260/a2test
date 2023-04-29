@@ -19,7 +19,6 @@ mkdir
 void make_dir(char *fileDir, int *cwd, int* indSize);
 void mkdir(char *fileDir, int *cwd, int* indSize){
     if (!check_dupe(cwd, fileDir)){
-        printf("hi");
         append_inodes(indSize, "d"); // also increments indSize by 1
         add_file_to_cwd(fileDir, cwd, indSize);
         make_dir(fileDir, cwd, indSize);
