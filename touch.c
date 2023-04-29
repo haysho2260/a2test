@@ -46,15 +46,7 @@ void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
     fwrite(indSize, sizeof(uint32_t), 1, fp); // write the new inode # and name to inodes_list
     fwrite(&("f"), sizeof(char), 1, fp); // write the new inode # and name to inodes_list
     fclose(fp);
-
-    // write to inodes list
-    fp = fopen(uint32_to_str(*cwd), "ab");
-    if (fp == NULL) {
-        perror("Failed to open file");
-        return;
-    }
     
     (*indSize) ++; // add one to the size of the list
-    fclose(fp);
     return;
 }
