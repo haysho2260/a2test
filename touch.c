@@ -6,11 +6,10 @@
 #include <stdint.h>
 #include "uint32_to_str.h"
 void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
-    printf("%d", *indSize);
     uint32_t num;
     char fname[33];
     int a, b;
-    FILE *fp = fopen(uint32_to_str(*cwd), "rb+");
+    FILE *fp = fopen(uint32_to_str(*cwd), "rb");
     if (fp == NULL) {
         perror("Failed to open file");
         return;
@@ -18,15 +17,16 @@ void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
     //check the directory to see if the file exists
     while ((a = fread(&num, sizeof(num), 1, fp)) == 1 &&
     ( b = fread(&fname, 32, 1, fp)) == 1){
-        printf("%ld ", ftell(fp));
         //if is directory and name matches what user wants to cd to, set cwd to num
         if (!strcmp(fname, fileDir)){
+            printf("unable to make file because file exists");
             return;
         } 
     }
-    fseek(fp, -16, SEEK_CUR);
+    fclose(fp);
+    fp = fopen(uint32_to_str(*cwd), "ab");
     fwrite(indSize, sizeof(uint32_t), 1, fp); // write the new inode # and name to inodes_list
-    fwrite(fname, sizeof(*fname), 1, fp); // write the new inode # and name to inodes_list
+    fwrite(fileDir, 32, 1, fp); // write the new inode # and name to inodes_list
     fclose(fp);
 
     // write to inodes list
