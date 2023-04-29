@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
             touch(name, &cwd, &indSize);
         }
         else if (!strcmp("mkdir", cmd)){
-            mkdir(name, &cwd, indlst, &indSize);
+            mkdir(name, &cwd, &indSize);
         }
         else if (!strcmp("exit", cmd)) {
            return 0;

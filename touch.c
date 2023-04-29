@@ -15,11 +15,7 @@ touch
 void touch(char *fileDir, int *cwd, int* indSize){
     if (!check_dupe(cwd, fileDir)){
         append_inodes(indSize, "f");
-        //add file name to cwd
-        FILE *fp = fopen(uint32_to_str(*cwd), "ab");
-        fwrite((indSize--), sizeof(uint32_t), 1, fp); // write the new inode # and name to cwd
-        fwrite(fileDir, 32, 1, fp); // write the new inode # and name to cwd
-        fclose(fp);
+        add_file_to_cwd(fileDir, cwd, indSize);
     }
     return;
 }
