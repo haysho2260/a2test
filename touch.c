@@ -5,48 +5,21 @@
 #include <errno.h>
 #include <stdint.h>
 #include "uint32_to_str.h"
+#include "make.h"
 /*
 touch
     makes a new inode in my ind list
     add to inodes_list (inode and file type f)
     write to current directory with new inode number and file name
 */
-void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
-    uint32_t num;
-    char fname[33];
-    int a, b;
-    FILE *fp = fopen(uint32_to_str(*cwd), "rb");
-    if (fp == NULL) {
-        perror("Failed to open file");
-        return;
+void touch(char *fileDir, int *cwd, int* indSize){
+    if (!check_dupe(cwd, fileDir)){
+        append_inodes(indSize, "f");
+        //add file name to cwd
+        FILE *fp = fopen(uint32_to_str(*cwd), "ab");
+        fwrite((indSize--), sizeof(uint32_t), 1, fp); // write the new inode # and name to cwd
+        fwrite(fileDir, 32, 1, fp); // write the new inode # and name to cwd
+        fclose(fp);
     }
-    //check the directory to see if the file exists
-    while ((a = fread(&num, sizeof(num), 1, fp)) == 1 &&
-    ( b = fread(&fname, 32, 1, fp)) == 1){
-        //if is directory and name matches what user wants to cd to, set cwd to num
-        if (!strcmp(fname, fileDir)){
-            printf("unable to make file because file exist\n");
-            return;
-        } 
-    }
-    fclose(fp);
-
-    //add file name to cwd
-    fp = fopen(uint32_to_str(*cwd), "ab");
-    fwrite(indSize, sizeof(uint32_t), 1, fp); // write the new inode # and name to cwd
-    fwrite(fileDir, 32, 1, fp); // write the new inode # and name to cwd
-    fclose(fp);
-
-    // write to inodes list
-    fp = fopen("inodes_list", "ab");
-    if (fp == NULL) {
-        perror("Failed to open file");
-        return;
-    }
-    fwrite(indSize, sizeof(uint32_t), 1, fp); // write the new inode # and name to inodes_list
-    fwrite(&("f"), sizeof(char), 1, fp); // write the new inode # and name to inodes_list
-    fclose(fp);
-    
-    (*indSize) ++; // add one to the size of the list
     return;
 }

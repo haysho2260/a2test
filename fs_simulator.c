@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
             cd(name, &cwd, indlst);
         }
         else if (!strcmp("touch", cmd)){
-            touch(name, &cwd, indlst, &indSize);
+            touch(name, &cwd, &indSize);
         }
         else if (!strcmp("mkdir", cmd)){
             mkdir(name, &cwd, indlst, &indSize);
