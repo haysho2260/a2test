@@ -25,7 +25,7 @@ void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
     ( b = fread(&fname, 32, 1, fp)) == 1){
         //if is directory and name matches what user wants to cd to, set cwd to num
         if (!strcmp(fname, fileDir)){
-            printf("unable to make file because file exists");
+            printf("unable to make file because file exist\n");
             return;
         } 
     }

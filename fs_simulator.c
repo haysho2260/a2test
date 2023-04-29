@@ -10,6 +10,7 @@
 #include "cd.h"
 #include "file_path.h"
 #include "touch.h"
+#include "mkdir.h"
 
 
 int main(int argc, char *argv[]) {
@@ -33,8 +34,11 @@ int main(int argc, char *argv[]) {
         else if (!strcmp("touch", cmd)){
             touch(name, &cwd, indlst, &indSize);
         }
+        else if (!strcmp("mkdir", cmd)){
+            mkdir(name, &cwd, indlst, &indSize);
+        }
         else if (!strcmp("exit", cmd)) {
-           
+           return 0;
         }
     }
     return 0;
