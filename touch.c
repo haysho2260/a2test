@@ -30,9 +30,11 @@ void touch(char *fileDir, int *cwd, char indlst[], int* indSize){
         } 
     }
     fclose(fp);
+
+    //add file name to cwd
     fp = fopen(uint32_to_str(*cwd), "ab");
-    fwrite(indSize, sizeof(uint32_t), 1, fp); // write the new inode # and name to inodes_list
-    fwrite(fileDir, 32, 1, fp); // write the new inode # and name to inodes_list
+    fwrite(indSize, sizeof(uint32_t), 1, fp); // write the new inode # and name to cwd
+    fwrite(fileDir, 32, 1, fp); // write the new inode # and name to cwd
     fclose(fp);
 
     // write to inodes list
